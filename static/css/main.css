@@ -49,7 +49,7 @@ input::placeholder {
 	line-height: 103.52%;
 	color: #FFFFFF;
 	border: none;
-	cursor: pointer;
+	cursor: pointer;zz
 }
 .btn:hover {
 	background: #14A87B;
@@ -348,7 +348,7 @@ opacity: 0.3;
 /*card.html*/
 .card {
 	padding-top: 50px;
-	padding-bottom: 100px;	
+	padding-bottom: 100px;
 }
 .card__block_first {
 	width: 602px;
@@ -476,11 +476,18 @@ margin-bottom: 30px;
 	height: 8px;
 	position: relative;
 }
-.quiz__progress_lineActive {;
+.quiz__progress_lineActive {
 	position: absolute;
 	background: #17CF97;
 	border-radius: 10px;
-	width: 8px;
+	width: 50%;
+	height: 8px;
+}
+.quiz__progress_lineFinish {
+	position: absolute;
+	background: #17CF97;
+	border-radius: 10px;
+	width: 100%;
 	height: 8px;
 }
 
@@ -687,7 +694,7 @@ margin-bottom: 5px;
 .order__form_item .orderStep_form_input {
 	width: 88px;
 	margin-right: 10px;
-	
+
 }
 .orderStep_form input[name="cardFname"] {
 	width: 220px;
@@ -698,7 +705,7 @@ margin-bottom: 5px;
 }
 
 .orderStep .order_items {
-	
+
 }
 
 /*consultation.html*/
