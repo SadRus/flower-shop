@@ -11,8 +11,8 @@ class Event(models.Model):
     )
 
     class Meta:
-        verbose_name = 'Событие'
-        verbose_name_plural = 'События'
+        verbose_name = 'Событие для букетов'
+        verbose_name_plural = 'События для букетов'
 
     def __str__(self):
         return f'{self.name}'
@@ -138,6 +138,16 @@ class BouquetComponent(models.Model):
         'Количество',
         validators=[MinValueValidator(1)],
     )
+
+    class Meta:
+        verbose_name = 'Компонент в букете'
+        verbose_name_plural = 'Компоненты в букете'
+        unique_together = [
+            ['bouquet', 'component']
+        ]
+
+    def __str__(self):
+        return f'{self.component.name} в букете {self.bouquet.name}'
 
 
 class Client(models.Model):
