@@ -11,11 +11,11 @@ class Event(models.Model):
     )
 
     class Meta:
-        verbose_name = "Событие"
-        verbose_name_plural = "События"
+        verbose_name = 'Событие'
+        verbose_name_plural = 'События'
 
     def __str__(self):
-        return f"{self.name}"
+        return f'{self.name}'
 
 
 class Component(models.Model):
@@ -23,13 +23,17 @@ class Component(models.Model):
         'Название компонента',
         max_length=50,
     )
+    is_plant = models.BooleanField(
+        'Это растение?',
+        default=True,
+    )
 
     class Meta:
-        verbose_name = "Компонент букета"
-        verbose_name_plural = "Компоненты букета"
+        verbose_name = 'Компонент букета'
+        verbose_name_plural = 'Компоненты букета'
 
     def __str__(self):
-        return f"{self.name}"
+        return f'{self.name}'
 
 
 class Timeslot(models.Model):
@@ -39,11 +43,11 @@ class Timeslot(models.Model):
     )
 
     class Meta:
-        verbose_name = "Период доставки"
-        verbose_name_plural = "Периоды доставки"
+        verbose_name = 'Период доставки'
+        verbose_name_plural = 'Периоды доставки'
 
     def __str__(self):
-        return f"{self.name}"
+        return f'{self.name}'
 
 
 class Consultation(models.Model):
@@ -61,11 +65,11 @@ class Consultation(models.Model):
     )
 
     class Meta:
-        verbose_name = "Заявка на консультацию"
-        verbose_name_plural = "Заявки на консультацию"
+        verbose_name = 'Заявка на консультацию'
+        verbose_name_plural = 'Заявки на консультацию'
 
     def __str__(self):
-        return f"От {self.name}"
+        return f'От {self.name}'
 
 
 class Bouquet(models.Model):
@@ -112,11 +116,11 @@ class Bouquet(models.Model):
 
 
     class Meta:
-        verbose_name = "Букет"
-        verbose_name_plural = "Букеты"
+        verbose_name = 'Букет'
+        verbose_name_plural = 'Букеты'
 
     def __str__(self):
-        return f"{self.name}"
+        return f'{self.name}'
 
 
 class BouquetComponent(models.Model):
@@ -151,6 +155,13 @@ class Client(models.Model):
         blank=True,
     )
 
+    class Meta:
+        verbose_name = 'Клиент'
+        verbose_name_plural = 'Клиенты'
+
+    def __str__(self):
+        return f'{self.name}'
+
 
 class Order(models.Model):
     client = models.ForeignKey(
@@ -180,11 +191,11 @@ class Order(models.Model):
     )
 
     class Meta:
-        verbose_name = "Заказ"
-        verbose_name_plural = "Заказы"
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
 
     def __str__(self):
-        return f"Заказ №{self.id} от {self.client.name}"
+        return f'Заказ №{self.id} от {self.client.name}'
 
 
 class Store(models.Model):
@@ -195,3 +206,10 @@ class Store(models.Model):
     phone = PhoneNumberField(
         'Телефон',
     )
+
+    class Meta:
+        verbose_name = 'Магазин'
+        verbose_name_plural = 'Магазины'
+
+    def __str__(self):
+        return f'{self.address}'
