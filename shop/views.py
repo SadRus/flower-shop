@@ -1,11 +1,13 @@
 from django.shortcuts import render
-from shop.models import Bouquet
+from shop.models import Bouquet, Store
 
 
 def index(request):
     bouquets = Bouquet.objects.all()
+    stores = Store.objects.all()
     context = {
-        'bouquets': bouquets
+        'bouquets': bouquets,
+        'stores': stores,
     }
     return render(request, 'index.html', context=context)
 
