@@ -1,8 +1,13 @@
 from django.shortcuts import render
+from shop.models import Bouquet
 
 
 def index(request):
-    return render(request, 'index.html')
+    bouquets = Bouquet.objects.all()
+    context = {
+        'bouquets': bouquets
+    }
+    return render(request, 'index.html', context=context)
 
 
 def card(request):
@@ -10,7 +15,11 @@ def card(request):
 
 
 def catalog(request):
-    return render(request, 'catalog.html')
+    bouquets = Bouquet.objects.all()
+    context = {
+        'bouquets': bouquets
+    }
+    return render(request, 'catalog.html', context=context)
 
 
 def consultation(request):
@@ -31,6 +40,7 @@ def quiz(request):
 
 
 def quiz_step(request):
+    event = request.POST.get('event')
     return render(request, 'quiz-step.html')
 
 
