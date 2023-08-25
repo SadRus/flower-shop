@@ -199,6 +199,10 @@ class Order(models.Model):
         null=True,
         on_delete=models.SET_NULL,
     )
+    is_paid = models.BooleanField(
+        'Заказ оплачен?',
+        default=False,
+    )
 
     class Meta:
         verbose_name = 'Заказ'
