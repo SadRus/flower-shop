@@ -1,5 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+from django.http import HttpResponseRedirect
+
 from shop.models import Bouquet, Store
+from shop.forms import OrderForm
 
 
 def index(request):
@@ -28,8 +31,20 @@ def consultation(request):
     return render(request, 'consultation.html')
 
 
-def order(request):
-    return render(request, 'order.html')
+def order(request, id):
+    bouquet = get_object_or_404(Bouquet, pk=id)
+    if request.method == 'POST':
+        form = OrderForm(request.POST)
+        if form.is_valid():
+            #subject = form.cleaned_data["subject"]
+            print('form valid, creating user & order')
+            return HttpResponseRedirect("/thanks/")
+    else:
+        form = OrderForm()
+    context = {
+        'form': form,
+    }
+    return render(request, 'order.html', context)
 
 
 def order_step(request):
