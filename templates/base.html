@@ -42,11 +42,12 @@
         <div class="consultation">
           <div class="title consultation__title">Оставьте заявку на консультацию</div>
           <form action="/consultation" class="consultation__form" method="POST">
+              {% csrf_token %}
               {{ form }}
             <button type="submit" class="consultation__form_btn">Отправить</button>
             <div class="chekbox fic">
               <input type="checkbox" class="singUpConsultation__ckekbox" checked required>
-              <span class="chekbox__intro">Я согласен(а) с политикой конфидециоальности и обработкой перс.данных</span>
+              <span class="chekbox__intro">Я согласен(а) с <a href="{% static 'files/privacy_policy.pdf' %}" target="_blank">политикой конфидециоальности и обработкой перс.данных</a></span>
             </div>
           </form>
         </div>

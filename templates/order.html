@@ -30,11 +30,13 @@
                 </div>
               {% endfor %}
             </div>
+              <div class="chekbox fic">
+                  <input type="checkbox" class="singUpConsultation__ckekbox" checked required>
+                  <span class="chekbox__intro">Я согласен(а) с <a href="{% static 'files/privacy_policy.pdf' %}" target="_blank">политикой конфидециоальности и обработкой перс.данных</a></span>
+              </div>
             <div class="order__form_line"></div>
             <div class="order__form_btns ficb">
-              <!-- <button class="btn order__form_pay">Оплатить</button> -->
               <button type="submit" class="btn order__form_pay">Оплатить</button>
-              <!-- <button class="btn order__form_btn">Назад</button> -->
               <button  onclick="location.href='javascript:history.back()'" class="btn order__form_btn">Назад</button>
             </div>
           </form>

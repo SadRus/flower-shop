@@ -6,20 +6,30 @@
 <section id="singUpConsultation">
   <div class="container">
     <div class="singUpConsultation">
-      <form action="" class="singUpConsultation__form">
-        {% csrf_token %}
-        <div class="title">Запись на консультацию</div>
-        {{ form.name }}
-        {{ form.phone }}
-        <div class="chekbox fic">
-          <input type="checkbox" class="singUpConsultation__ckekbox" checked required>
-          <span class="chekbox__intro">Я согласен(а) с политикой конфидециоальности и обработкой перс.данных</span>
+        <div class="singUpConsultation__form">
+          {% if result %}
+            <div class="title">Спасибо, мы свяжемся с вами в ближайшее время!</div>
+            <button onclick="location.href='{% url 'catalog' %}'" class="btn singUpConsultation__form_btn">Перейти в каталог букетов</button>
+          {% else %}
+              <div class="title">Запись на консультацию</div>
+              <form action="" method="POST">
+                {% csrf_token %}
+                {{ form.name }}
+                {{ form.phone }}
+                <div class="chekbox fic">
+                  <input type="checkbox" class="singUpConsultation__ckekbox" checked required>
+                  <span class="chekbox__intro">Я согласен(а) с <a href="{% static 'files/privacy_policy.pdf' %}" target="_blank">политикой конфидециоальности и обработкой перс.данных</a></span>
+                </div>
+                <button class="btn singUpConsultation__form_btn">Отправить</button>
+              </form>
+            {% endif %}
         </div>
-        <button class="btn singUpConsultation__form_btn">Отправить</button>
-      </form>
       <div class="blockImgHiden"></div>
     </div>
   </div>
   <img src="{% static 'img/singUpConsultationImg.jpg' %}" alt="singUpConsultationImg" class="singUpConsultation__img">
 </section>
+{% endblock %}
+
+{% block consultation %}
 {% endblock %}
