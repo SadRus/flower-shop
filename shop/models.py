@@ -55,9 +55,8 @@ class Consultation(models.Model):
         'Имя клиента',
         max_length=250,
     )
-    phone = models.CharField(
+    phone = PhoneNumberField(
         'Телефон',
-        max_length=13,
     )
     is_processed = models.BooleanField(
         'Консультация оказана?',
