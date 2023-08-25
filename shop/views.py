@@ -1,7 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 
-from shop.models import Bouquet, Store
+from shop.models import Bouquet, Store, Client, Order
 from shop.forms import OrderForm
 
 
@@ -36,9 +36,21 @@ def order(request, id):
     if request.method == 'POST':
         form = OrderForm(request.POST)
         if form.is_valid():
-            #subject = form.cleaned_data["subject"]
-            print('form valid, creating user & order')
-            return HttpResponseRedirect("/thanks/")
+            name = form.cleaned_data['name']
+            phone = form.cleaned_data['phone']
+            address = form.cleaned_data['address']
+            timeslot = form.cleaned_data['timeslot']
+
+            client, _ = Client.objects.get_or_create(name=name, phone=phone)
+
+            order = Order.objects.create(
+                client=client,
+                address=address,
+                bouquet=bouquet,
+                timeslot=timeslot,
+            )
+
+            return HttpResponseRedirect(f'link-to-pay-with-{order.id}')
     else:
         form = OrderForm()
     context = {
@@ -47,9 +59,15 @@ def order(request, id):
     return render(request, 'order.html', context)
 
 
-def order_step(request):
-    print(request)
-    return render(request, 'order-step.html')
+def payment_result(request):
+
+    result = True  # or False
+
+    context = {
+        'result': result,
+        'order': order,
+    }
+    return render(request, 'payment_result.html', context)
 
 
 def quiz(request):
