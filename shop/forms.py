@@ -2,7 +2,7 @@ from django import forms
 
 from phonenumber_field.formfields import PhoneNumberField
 
-from .models import Timeslot
+from shop.models import Timeslot, Consultation
 
 
 class OrderForm(forms.Form):
@@ -52,3 +52,27 @@ class OrderForm(forms.Form):
 		),
 		queryset=Timeslot.objects.all(),
 	)
+
+
+class ConsultationForm(forms.ModelForm):
+	class Meta:
+		model = Consultation
+		fields = ['name', 'phone']
+		labels = {
+			'name': '',
+			'phone': '',
+		}
+		widgets = {
+			'name': forms.TextInput(
+				attrs={
+					'placeholder': 'Введите имя',
+					'class': 'order__form_input',
+				}
+			),
+			'phone': forms.TextInput(
+				attrs={
+					'placeholder': '+7 (999) 000 00 00',
+					'class': 'order__form_input',
+				}
+			),
+		}

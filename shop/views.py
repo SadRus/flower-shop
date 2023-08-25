@@ -1,8 +1,8 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 
-from shop.models import Bouquet, Store, Client, Order
-from shop.forms import OrderForm
+from shop.models import Bouquet, Store, Client, Order, Consultation
+from shop.forms import OrderForm, ConsultationForm
 
 
 def index(request):
@@ -11,6 +11,7 @@ def index(request):
     context = {
         'bouquets': bouquets,
         'stores': stores,
+        'form': ConsultationForm(),
     }
     return render(request, 'index.html', context=context)
 
@@ -28,7 +29,25 @@ def catalog(request):
 
 
 def consultation(request):
-    return render(request, 'consultation.html')
+    result = None
+    if request.method == 'POST':
+        form = ConsultationForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            phone = form.cleaned_data['phone']
+            Consultation.objects.create(
+                name=name,
+                phone=phone,
+            )
+            result = True
+    else:
+        form = ConsultationForm()
+        result = False
+    context = {
+        'form': form,
+        'result': result,
+    }
+    return render(request, 'consultation.html', context)
 
 
 def order(request, id):

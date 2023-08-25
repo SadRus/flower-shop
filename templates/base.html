@@ -41,10 +41,13 @@
       <div class="container">
         <div class="consultation">
           <div class="title consultation__title">Оставьте заявку на консультацию</div>
-          <form action="#" class="consultation__form">
-            <input type="text" name="fname" class="consultation__form_input" placeholder="Введите Имя" required>
-            <input type="text" name="tel" class="consultation__form_input" placeholder="+ 7 (999) 000 00 00" required>
+          <form action="/consultation" class="consultation__form" method="POST">
+              {{ form }}
             <button type="submit" class="consultation__form_btn">Отправить</button>
+            <div class="chekbox fic">
+              <input type="checkbox" class="singUpConsultation__ckekbox" checked required>
+              <span class="chekbox__intro">Я согласен(а) с политикой конфидециоальности и обработкой перс.данных</span>
+            </div>
           </form>
         </div>
       </div>
