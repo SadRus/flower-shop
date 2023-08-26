@@ -96,7 +96,8 @@ def order(request, id):
                 uuid.uuid4()
             )
 
-            print(payment)
+            order.payment_id = payment.json()['id']
+            order.save()
 
             context = {
                 'payment': payment,

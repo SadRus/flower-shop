@@ -203,6 +203,12 @@ class Order(models.Model):
         'Заказ оплачен?',
         default=False,
     )
+    payment_id = models.CharField(
+        'идентификатор юкасса',
+        max_length=250,
+        null=True,
+        blank=True
+    )
 
     class Meta:
         verbose_name = 'Заказ'
