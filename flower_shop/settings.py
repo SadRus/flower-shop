@@ -30,6 +30,8 @@ DEBUG = env.bool('DEBUG')
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
 YKASSA_SHOP_ID = env.str('YKASSA_SHOP_ID')
 YKASSA_SECRET_KEY = env.str('YKASSA_SECRET_KEY')
+TG_TOKEN = env.str('TG_TOKEN')
+ADMIN_TG_CHAT_ID = env.str('ADMIN_TG_CHAT_ID')
 
 
 # Application definition

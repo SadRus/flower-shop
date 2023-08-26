@@ -1,12 +1,13 @@
+import uuid
+
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
+from yookassa import Configuration, Payment
 
-from flower_shop.settings import YKASSA_SHOP_ID, YKASSA_SECRET_KEY
+from flower_shop.settings import YKASSA_SHOP_ID, YKASSA_SECRET_KEY, ADMIN_TG_CHAT_ID, TG_TOKEN
 from shop.models import Bouquet, Store, Client, Order, Consultation
 from shop.forms import OrderForm, ConsultationForm
-
-from yookassa import Configuration, Payment
-import uuid
+from shop.bot import TelegramNotifier
 
 
 def index(request):
@@ -44,6 +45,8 @@ def consultation(request):
                 phone=phone,
             )
             result = True
+            bot = TelegramNotifier(TG_TOKEN, ADMIN_TG_CHAT_ID)
+            bot.send_notify(f'У вас новая заявка на консультацию: {name}, {phone}')
     else:
         form = ConsultationForm()
         result = False
@@ -105,13 +108,16 @@ def order(request, id):
 
 def payment_result(request):
     result = True  # or False
-
+    order = 1
     # here we should set is_paid field of Order to True if result is successes
     # and here we should notify admin by telegram abut new order
+    if result:
+        bot = TelegramNotifier(TG_TOKEN, ADMIN_TG_CHAT_ID)
+        bot.send_notify(f'Оплачен новый заказ № {order}')
 
     context = {
         'result': result,
-        'order': 1,
+        'order': order,
     }
     return render(request, 'payment_result.html', context)
 
