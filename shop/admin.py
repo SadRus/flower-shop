@@ -31,6 +31,10 @@ class BouquetAdmin(admin.ModelAdmin):
     inlines = [
         RestaurantMenuItemInline
     ]
+    list_display = [
+        'name',
+        'price',
+    ]
 
 
 @admin.register(Client)
