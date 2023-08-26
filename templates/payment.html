@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+{% load static %}
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Flower Shop</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Unbounded:wght@700&display=swap"
+        rel="stylesheet">
+  <link rel="shortcut icon" href={% static 'img/favicon.png' %} type="image/png">
+  <link rel="stylesheet" href="{% static 'css/main.css' %}">
+  <style type="text/css">
+      payment_link {
+          display: inline-block;
+          height: 40px;
+          background: #17CF97;
+          border-radius: 40px;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 103.52%;
+          color: #FFFFFF;
+          border: none;
+          cursor: pointer;
+      }
+  </style>
+</head>
+
+<body>
+{% block header %}
+  <header id="header">
+    <div class="container">
+      <div class="header ficb">
+        <a href="/"><img src="{% static 'img/logo.svg' %}" alt="logo" class="logo"></a>
+        <nav>
+          <ul class="menu ficc">
+            <li class="menu__item"><a href="{% url 'catalog' %}" class="menu__item_link">Каталог</a></li>
+            <li class="menu__item"><a href="{% url 'index' %}#recommended" class="menu__item_link">Рекомендации</a></li>
+            <li class="menu__item"><a href="{% url 'index' %}#contacts" class="menu__item_link">Контакты</a></li>
+          </ul>
+        </nav>
+      </div>
+    </div>
+  </header>
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+  <h1>Оплата заказа</h1>
+  <p>Клиент: {{ order.client.name }}</p>
+  <p>Телефон: {{ order.client.phone }}</p>
+  <p>Адрес доставки: {{ order.address }}</p>
+  <p>Ваш букет: {{ order.bouquet }}</p>
+  <p>Сумма к оплате: {{ payment.amount.value }} {{ payment.amount.currency }}</p>
+  <p>Описание: {{ payment.description }}</p>
+  <div>
+  <a
+          style="display: inline-block;
+          height: 40px;
+          background: #17CF97;
+          border-radius: 40px;
+          width: 100px;
+          font-weight: 500;
+          font-size: 16px;
+          line-height: 103.52%;
+          color: #FFFFFF;
+          cursor: pointer;
+          text-align: center;
+          padding: 10px;"
+          href="{{ payment.confirmation.confirmation_url }}">Оплата
+  </a>
+  </div>
+</div>
+
+{% endblock %}
+
+
+{% block footer %}
+  <footer id="footer">
+    <div class="container">
+      <div class="footer">
+        <a href="/"><img src="{% static 'img/logo.svg' %}" alt="logo" class="logo footer__logo"></a>
+        <nav>
+          <ul class="menu footer__menu ficc">
+            <li class="menu__item"><a href="{% url 'catalog' %}" class="menu__item_link">Каталог</a></li>
+            <li class="menu__item"><a href="{% url 'index' %}#recommended" class="menu__item_link">Рекомендации</a></li>
+            <li class="menu__item"><a href="{% url 'index' %}#contacts" class="menu__item_link">Контакты</a></li>
+          </ul>
+        </nav>
+        <hr class="line">
+        </hr>
+        <a href="#" class="footer__poli">Политика конфиденциальности</a>
+        <p class="footer_cop">©️2022. FlowerShop. Все права защищены</p>
+      </div>
+    </div>
+  </footer>
+{% endblock %}
+
+</body>
+</html>
+
+
+

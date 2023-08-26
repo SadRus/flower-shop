@@ -4,3 +4,5 @@ djangorestframework==3.14.0
 environs[django]==9.3.2
 pillow==10.0.0
 phonenumbers==8.13.19
+yookassa==2.4.0
+python-telegram-bot==13.1

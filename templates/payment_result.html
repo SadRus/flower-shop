@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<section id="singUpConsultation">
+  <div class="container">
+    <div class="singUpConsultation">
+        <div class="singUpConsultation__form">
+        {% if result %}
+            <div class="title">Ваш заказ №{{ order }} успешно оплачен</div>
+        {% else %}
+            <div class="title">Возникла проблема с оплатой заказа №{{ order.id }}</div>
+        {% endif %}
+        </div>
+    </div>
+  </div>
+  <img src="{% static 'img/singUpConsultationImg.jpg' %}" alt="singUpConsultationImg" class="singUpConsultation__img">
+</section>
+{% endblock %}

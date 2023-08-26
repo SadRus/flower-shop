@@ -55,14 +55,15 @@ class Consultation(models.Model):
         'Имя клиента',
         max_length=250,
     )
-    phone = models.CharField(
+    phone = PhoneNumberField(
         'Телефон',
-        max_length=13,
     )
     is_processed = models.BooleanField(
         'Консультация оказана?',
         default=False,
     )
+
+    phone.error_messages['invalid'] = 'Номер телефона введен неверно! Исправьте, пожалуйста'
 
     class Meta:
         verbose_name = 'Заявка на консультацию'
@@ -113,7 +114,6 @@ class Bouquet(models.Model):
         null=True,
         blank=True,
     )
-
 
     class Meta:
         verbose_name = 'Букет'
@@ -198,6 +198,10 @@ class Order(models.Model):
         related_name='orders',
         null=True,
         on_delete=models.SET_NULL,
+    )
+    is_paid = models.BooleanField(
+        'Заказ оплачен?',
+        default=False,
     )
 
     class Meta:
