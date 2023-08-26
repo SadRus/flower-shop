@@ -5,7 +5,7 @@ from django.http import HttpResponseRedirect
 from yookassa import Configuration, Payment
 
 from flower_shop.settings import YKASSA_SHOP_ID, YKASSA_SECRET_KEY, ADMIN_TG_CHAT_ID, TG_TOKEN
-from shop.models import Bouquet, Store, Client, Order, Consultation
+from shop.models import Bouquet, BouquetComponent, Event, Store, Client, Order, Consultation
 from shop.forms import OrderForm, ConsultationForm
 from shop.bot import TelegramNotifier
 
@@ -133,13 +133,52 @@ def payment_result(request):
 
 
 def quiz(request):
-    return render(request, 'quiz.html')
+    context = {
+        'events': Event.objects.all()
+    }
+    return render(request, 'quiz.html', context=context)
 
 
 def quiz_step(request):
-    event = request.POST.get('event')
-    return render(request, 'quiz-step.html')
+    event = request.GET.get('event')
+    response = render(request, 'quiz-step.html')
+    response.set_cookie(key='event_id', value=event)
+    return response
 
 
 def result(request):
-    return render(request, 'result.html')
+    price = request.GET.get('price')
+    event_id = request.COOKIES['event_id']
+
+    event = Event.objects.get(id=event_id)
+    if event.name == 'Без повода':
+        event_bouquets = Bouquet.objects.all()
+    else:
+        event_bouquets = Bouquet.objects.filter(event=int(event_id))
+
+    match price:
+        case "1000":
+            quiz_bouquet = event_bouquets.filter(price__lt=1000) \
+                                         .order_by('?') \
+                                         .first()
+        case "5000":
+            quiz_bouquet = event_bouquets.filter(price__gte=1000, price__lt=5000) \
+                                         .order_by('?') \
+                                         .first()
+        case "5000+":
+            quiz_bouquet = event_bouquets.filter(price__gte=5000) \
+                                         .order_by('?') \
+                                         .first()
+        case "None":
+            quiz_bouquet = event_bouquets.order_by('?').first()
+
+    bouquet_components = BouquetComponent.objects.filter(bouquet=quiz_bouquet)
+
+    context = {
+        'bouquet': quiz_bouquet,
+        'bouquet_components': bouquet_components,
+    }
+
+    response = render(request, 'result.html', context=context)
+    response.delete_cookie('event')
+    return response

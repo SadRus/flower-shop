@@ -14,11 +14,10 @@
       <div class="quiz__block">
         <h1 class="quiz__title">К какому событию нужен букет?</h1>
         <div class="quiz__elems fic">
-          <form action="{% url 'quiz-step'%}" method="POST">
-            {% csrf_token %}
-            <button class="quiz__elem" type="submit">Свадьба</button>
-            <button class="quiz__elem" type="submit">День рождения</button>
-            <button class="quiz__elem" type="submit">Без повода</button>
+          <form action="{% url 'quiz-step'%}" method="GET">
+            {% for event in events %}
+              <button class="quiz__elem" type="submit" name="event" value="{{ event.id }}">{{ event }}</button>
+            {% endfor %}
           </form>
         </div>
         <div class="quiz__progress">
