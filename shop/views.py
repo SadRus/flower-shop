@@ -119,7 +119,7 @@ def payment_result(request):
     if result:
         bot = TelegramNotifier(TG_TOKEN, ADMIN_TG_CHAT_ID)
         bot.send_notify(f'Оплачен новый заказ № {order}')
-        bot.send_notify(request)
+        bot.send_notify(request.method)
 
     context = {
         'result': result,
