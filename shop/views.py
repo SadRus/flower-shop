@@ -111,7 +111,7 @@ def order(request, id):
 
 
 def payment_result(request):
-    print(request.GET)
+
     result = True  # or False
     order = 1
     # here we should set is_paid field of Order to True if result is successes
@@ -119,11 +119,13 @@ def payment_result(request):
     if result:
         bot = TelegramNotifier(TG_TOKEN, ADMIN_TG_CHAT_ID)
         bot.send_notify(f'Оплачен новый заказ № {order}')
+        bot.send_notify(request.GET)
 
     context = {
         'result': result,
         'order': order,
     }
+
     return render(request, 'payment_result.html', context)
 
 
