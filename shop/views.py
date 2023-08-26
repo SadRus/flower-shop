@@ -83,20 +83,24 @@ def order(request, id):
             payment = Payment.create(
                 {
                     "amount": {
-                        "value": "100.00",
+                        "value": order.bouquet.price,
                         "currency": "RUB"
                     },
                     "confirmation": {
                         "type": "redirect",
-                        "return_url": "https://starburgerito.ru/payment_result/"
+                        "return_url": "https://starburgerito.ru/payment_result"
                     },
                     "capture": True,
-                    "description": "Оплата заказа #123"
+                    "description": f"Оплата заказа #{order.id}"
                 },
                 uuid.uuid4()
             )
 
-            return render(request, 'payment.html', {'payment': payment})
+            context = {
+                'payment': payment,
+                'order': order
+            }
+            return render(request, 'payment.html', context)
 
     else:
         form = OrderForm()
@@ -107,6 +111,7 @@ def order(request, id):
 
 
 def payment_result(request):
+    print(request.GET)
     result = True  # or False
     order = 1
     # here we should set is_paid field of Order to True if result is successes
