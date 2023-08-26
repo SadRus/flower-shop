@@ -113,7 +113,6 @@ class Bouquet(models.Model):
         blank=True,
     )
 
-
     class Meta:
         verbose_name = 'Букет'
         verbose_name_plural = 'Букеты'

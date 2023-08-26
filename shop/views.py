@@ -4,6 +4,9 @@ from django.http import HttpResponseRedirect
 from shop.models import Bouquet, Store, Client, Order, Consultation
 from shop.forms import OrderForm, ConsultationForm
 
+from yookassa import Configuration, Payment
+import uuid
+
 
 def index(request):
     bouquets = Bouquet.objects.all()
@@ -69,7 +72,27 @@ def order(request, id):
                 timeslot=timeslot,
             )
 
-            return HttpResponseRedirect(f'link-to-pay-with-{order.id}')
+            Configuration.account_id = '247983'
+            Configuration.secret_key = 'test_A2m4r91KrZwixig-rxQfkwx1btEYjqEMwwZi4FpJsLE'
+
+            payment = Payment.create(
+                {
+                    "amount": {
+                        "value": "100.00",
+                        "currency": "RUB"
+                    },
+                    "confirmation": {
+                        "type": "redirect",
+                        "return_url": "https://starburgerito.ru/payment_result/"
+                    },
+                    "capture": True,
+                    "description": "Оплата заказа #123"
+                },
+                uuid.uuid4()
+            )
+
+            return render(request, 'payment.html', {'payment': payment})
+
     else:
         form = OrderForm()
     context = {
@@ -79,12 +102,11 @@ def order(request, id):
 
 
 def payment_result(request):
-
     result = True  # or False
 
     context = {
         'result': result,
-        'order': order,
+        'order': 1,
     }
     return render(request, 'payment_result.html', context)
 
