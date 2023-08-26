@@ -114,7 +114,6 @@ def order(request, id):
 
 
 def payment_result(request):
-
     result = True  # or False
     order = 1
     # here we should set is_paid field of Order to True if result is successes
@@ -156,22 +155,17 @@ def result(request):
     else:
         event_bouquets = Bouquet.objects.filter(event=int(event_id))
 
-    match price:
-        case "1000":
-            quiz_bouquet = event_bouquets.filter(price__lt=1000) \
-                                         .order_by('?') \
-                                         .first()
-        case "5000":
-            quiz_bouquet = event_bouquets.filter(price__gte=1000, price__lt=5000) \
-                                         .order_by('?') \
-                                         .first()
-        case "5000+":
-            quiz_bouquet = event_bouquets.filter(price__gte=5000) \
-                                         .order_by('?') \
-                                         .first()
-        case "None":
-            quiz_bouquet = event_bouquets.order_by('?').first()
+    # match price:
+    #     case "1000":
+    #         quiz_bouquet = event_bouquets.filter(price__lt=1000).order_by('?').first()
+    #     case "5000":
+    #         quiz_bouquet = event_bouquets.filter(price__gte=1000, price__lt=5000).order_by('?').first()
+    #     case "5000+":
+    #         quiz_bouquet = event_bouquets.filter(price__gte=5000).order_by('?').first()
+    #     case "None":
+    #         quiz_bouquet = event_bouquets.order_by('?').first()
 
+    quiz_bouquet = event_bouquets.filter(price__lt=1000).order_by('?').first()
     bouquet_components = BouquetComponent.objects.filter(bouquet=quiz_bouquet)
 
     context = {
