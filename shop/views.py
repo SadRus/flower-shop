@@ -1,3 +1,4 @@
+import json
 import uuid
 
 from django.shortcuts import render, get_object_or_404
@@ -96,7 +97,7 @@ def order(request, id):
                 uuid.uuid4()
             )
 
-            order.payment_id = payment.json()['id']
+            order.payment_id = json.loads(payment.json())['id']
             order.save()
 
             context = {
@@ -121,7 +122,6 @@ def payment_result(request):
     if result:
         bot = TelegramNotifier(TG_TOKEN, ADMIN_TG_CHAT_ID)
         bot.send_notify(f'Оплачен новый заказ № {order}')
-        bot.send_notify(request.GET)
 
     context = {
         'result': result,
