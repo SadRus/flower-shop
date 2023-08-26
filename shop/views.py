@@ -88,13 +88,15 @@ def order(request, id):
                     },
                     "confirmation": {
                         "type": "redirect",
-                        "return_url": "https://starburgerito.ru/payment_result"
+                        "return_url": f"https://starburgerito.ru/payment_result?order_id={order.id}"
                     },
                     "capture": True,
                     "description": f"Оплата заказа #{order.id}"
                 },
                 uuid.uuid4()
             )
+
+            print(payment)
 
             context = {
                 'payment': payment,
@@ -119,7 +121,7 @@ def payment_result(request):
     if result:
         bot = TelegramNotifier(TG_TOKEN, ADMIN_TG_CHAT_ID)
         bot.send_notify(f'Оплачен новый заказ № {order}')
-        bot.send_notify(request.method)
+        bot.send_notify(request.GET)
 
     context = {
         'result': result,
