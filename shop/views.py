@@ -97,6 +97,7 @@ def order(request, id):
             )
 
             order.payment_id = payment.json()['id']
+            order.save()
 
             context = {
                 'payment': payment,
