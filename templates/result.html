@@ -33,7 +33,7 @@
           <div class="title result__items_title">{{ bouquet.name }}</div>
           <div class="result__items_price">{{ bouquet.price }} руб</div>
           <!-- <button class="btn result__items_btn">Заказать букет</button> -->
-          <button onclick="location.href='{% url 'order' %}'" class="btn result__items_btn">Заказать букет</button>
+          <button onclick="location.href='{% url 'order' bouquet.id %}'" class="btn result__items_btn">Заказать букет</button>
           <hr class="result__items_line" />
           <div class="result__items_intro">Хотите что-то более специальное?</div>
           <div class="result__items_block">
