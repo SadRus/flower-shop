@@ -15,7 +15,6 @@ def index(request):
     context = {
         'bouquets': bouquets,
         'stores': stores,
-        'form': ConsultationForm(),
     }
     return render(request, 'index.html', context=context)
 
@@ -34,6 +33,7 @@ def catalog(request):
 
 def consultation(request):
     result = None
+    name = None
     if request.method == 'POST':
         form = ConsultationForm(request.POST)
         if form.is_valid():
@@ -50,6 +50,7 @@ def consultation(request):
     context = {
         'form': form,
         'result': result,
+        'name': name,
     }
     return render(request, 'consultation.html', context)
 
@@ -104,6 +105,9 @@ def order(request, id):
 
 def payment_result(request):
     result = True  # or False
+
+    # here we should set is_paid field of Order to True if result is successes
+    # and here we should notify admin by telegram abut new order
 
     context = {
         'result': result,
