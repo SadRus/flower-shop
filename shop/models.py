@@ -63,6 +63,8 @@ class Consultation(models.Model):
         default=False,
     )
 
+    phone.error_messages['invalid'] = 'Номер телефона введен неверно! Исправьте, пожалуйста'
+
     class Meta:
         verbose_name = 'Заявка на консультацию'
         verbose_name_plural = 'Заявки на консультацию'

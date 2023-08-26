@@ -22,7 +22,6 @@ class OrderForm(forms.Form):
 	)
 	phone = PhoneNumberField(
 		label='',
-
 		widget=forms.TextInput(
 			attrs={
 				'placeholder': '+7 (999) 000 00 00',

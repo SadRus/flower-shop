@@ -8,12 +8,17 @@
     <div class="singUpConsultation">
         <div class="singUpConsultation__form">
           {% if result %}
-            <div class="title">Спасибо, мы свяжемся с вами в ближайшее время!</div>
+            <div class="title">Спасибо, {{ name }}, мы свяжемся с вами в ближайшее время!</div>
             <button onclick="location.href='{% url 'catalog' %}'" class="btn singUpConsultation__form_btn">Перейти в каталог букетов</button>
           {% else %}
               <div class="title">Запись на консультацию</div>
               <form action="" method="POST">
                 {% csrf_token %}
+              <div class="errors">
+                {{ form.non_field_errors }}
+                {{ form.phone.errors }}
+                {{ form.name.errors }}
+              </div>
                 {{ form.name }}
                 {{ form.phone }}
                 <div class="chekbox fic">

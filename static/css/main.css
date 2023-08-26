@@ -799,3 +799,9 @@ color: #2D2D2D;
 
 opacity: 0.3;
 }
+
+.errors .errorlist {
+	color: red;
+	list-style: none;
+	margin-bottom: 15px;
+}
