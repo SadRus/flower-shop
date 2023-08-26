@@ -25,13 +25,11 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-#o=^70_as02xzw$2e&idvv(oo&snd(n%xxktx1pcj3e%q1ddvt'
-
-# SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = env.list('ALLOWED_HOSTS', ['127.0.0.1', 'localhost'])
+SECRET_KEY = env.str('SECRET_KEY')
+DEBUG = env.bool('DEBUG')
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+YKASSA_SHOP_ID = env.str('YKASSA_SHOP_ID')
+YKASSA_SECRET_KEY = env.str('YKASSA_SECRET_KEY')
 
 
 # Application definition

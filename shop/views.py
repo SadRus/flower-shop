@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponseRedirect
 
+from flower_shop.settings import YKASSA_SHOP_ID, YKASSA_SECRET_KEY
 from shop.models import Bouquet, Store, Client, Order, Consultation
 from shop.forms import OrderForm, ConsultationForm
 
@@ -72,8 +73,8 @@ def order(request, id):
                 timeslot=timeslot,
             )
 
-            Configuration.account_id = '247983'
-            Configuration.secret_key = 'test_A2m4r91KrZwixig-rxQfkwx1btEYjqEMwwZi4FpJsLE'
+            Configuration.account_id = YKASSA_SHOP_ID
+            Configuration.secret_key = YKASSA_SECRET_KEY
 
             payment = Payment.create(
                 {
