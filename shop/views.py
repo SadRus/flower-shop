@@ -123,6 +123,8 @@ def payment_result(request):
     customer_order = get_object_or_404(Order, id=request.GET.get('order_id'))
     order_payment_id = customer_order.payment_id
 
+    Configuration.account_id = YKASSA_SHOP_ID
+    Configuration.secret_key = YKASSA_SECRET_KEY
     payment = json.loads((Payment.find_one(order_payment_id)).json())
     if payment['status'] == 'succeeded':
         check_payment_result = True
