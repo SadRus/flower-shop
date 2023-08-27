@@ -149,11 +149,9 @@ def result(request):
     price = request.GET.get('price')
     event_id = request.COOKIES['event_id']
 
-    event = Event.objects.get(id=event_id)
-    if event.name == 'Без повода':
+    event_bouquets = Bouquet.objects.filter(event=int(event_id))
+    if not event_bouquets:
         event_bouquets = Bouquet.objects.all()
-    else:
-        event_bouquets = Bouquet.objects.filter(event=int(event_id))
 
     if price == "1000":
         quiz_bouquet = event_bouquets.filter(price__lt=1000) \
