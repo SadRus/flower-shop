@@ -8,9 +8,12 @@
     <div class="singUpConsultation">
         <div class="singUpConsultation__form">
         {% if result %}
-            <div class="title">Ваш заказ №{{ order }} успешно оплачен</div>
+            <div class="title">Ваш заказ №{{ order.id }} успешно оплачен! Спасибо за заказ.</div>
         {% else %}
-            <div class="title">Возникла проблема с оплатой заказа №{{ order.id }}</div>
+            <div class="title">
+              Возникла проблема с оплатой заказа №{{ order.id }}!
+              Пожалуйста, обновите страницу чуть позже, дождитесь финального статуса оплаты. Спасибо.
+            </div>
         {% endif %}
         </div>
     </div>

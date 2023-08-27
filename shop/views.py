@@ -119,17 +119,19 @@ def order(request, id):
 
 
 def payment_result(request):
-    result = True  # or False
-    order = 1
-    # here we should set is_paid field of Order to True if result is successes
-    # and here we should notify admin by telegram abut new order
-    if result:
+    check_payment_result = False
+    customer_order = get_object_or_404(Order, id=request.GET.get('order'))
+    order_payment_id = customer_order.payment_id
+
+    payment = json.loads((Payment.find_one(order_payment_id)).json())
+    if payment['status'] == 'succeeded':
+        check_payment_result = True
         bot = TelegramNotifier(TG_TOKEN, ADMIN_TG_CHAT_ID)
         bot.send_notify(f'Оплачен новый заказ № {order}')
 
     context = {
-        'result': result,
-        'order': order,
+        'result': check_payment_result,
+        'order': customer_order,
     }
 
     return render(request, 'payment_result.html', context)
@@ -159,16 +161,16 @@ def result(request):
 
     if price == "1000":
         quiz_bouquet = event_bouquets.filter(price__lt=1000) \
-                                        .order_by('?') \
-                                        .first()
+            .order_by('?') \
+            .first()
     elif price == "5000":
         quiz_bouquet = event_bouquets.filter(price__gte=1000, price__lt=5000) \
-                                        .order_by('?') \
-                                        .first()
+            .order_by('?') \
+            .first()
     elif price == "5000+":
         quiz_bouquet = event_bouquets.filter(price__gte=5000) \
-                                        .order_by('?') \
-                                        .first()
+            .order_by('?') \
+            .first()
     else:
         quiz_bouquet = event_bouquets.order_by('?').first()
 
