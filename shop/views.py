@@ -22,7 +22,7 @@ def index(request):
 
 
 def card(request, id):
-    bouquet = Bouquet.objects.get(id=id)
+    bouquet = get_object_or_404(Bouquet, id=id)
     context = {
         'bouquet': bouquet,
     }
