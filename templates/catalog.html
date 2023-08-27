@@ -11,7 +11,7 @@
           <div class="catalog__block_bouquet">
               <span class="catalog__block_intro">{{ bouquet.name }}</span>
               <span class="catalog__block_price">{{ bouquet.price }} руб.</span>
-              <img class="catalog__block_img" src="{{ bouquet.image.url }}">
+              <a href="{% url 'card' bouquet.id %}"><img class="catalog__block_img" src="{{ bouquet.image.url }}"></a>
           </div>
         {% endfor %}
 

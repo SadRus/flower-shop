@@ -24,7 +24,7 @@ from . import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.index, name='index'),
-    path('card', views.card, name='card'),
+    path('card/<int:id>', views.card, name='card'),
     path('catalog', views.catalog, name='catalog'),
     path('consultation', views.consultation, name='consultation'),
     path('order/<int:id>', views.order, name='order'),

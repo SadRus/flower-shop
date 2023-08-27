@@ -21,8 +21,15 @@ def index(request):
     return render(request, 'index.html', context=context)
 
 
-def card(request):
-    return render(request, 'card.html')
+def card(request, id):
+    bouquet = Bouquet.objects.get(id=id)
+    bouquet_components = BouquetComponent.objects.filter(bouquet=bouquet)
+
+    context = {
+        'bouquet': bouquet,
+        'bouquet_components': bouquet_components,
+    }
+    return render(request, 'card.html', context=context)
 
 
 def catalog(request):
@@ -169,10 +176,12 @@ def result(request):
         quiz_bouquet = event_bouquets.order_by('?').first()
 
     bouquet_components = BouquetComponent.objects.filter(bouquet=quiz_bouquet)
+    stores = Store.objects.all()
 
     context = {
         'bouquet': quiz_bouquet,
         'bouquet_components': bouquet_components,
+        'stores': stores,
     }
 
     response = render(request, 'result.html', context=context)
