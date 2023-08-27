@@ -22,14 +22,14 @@ class ConsultationAdmin(admin.ModelAdmin):
     pass
 
 
-class RestaurantMenuItemInline(admin.TabularInline):
+class BouquetComponentInline(admin.TabularInline):
     model = BouquetComponent
     extra = 0
 
 @admin.register(Bouquet)
 class BouquetAdmin(admin.ModelAdmin):
     inlines = [
-        RestaurantMenuItemInline
+        BouquetComponentInline
     ]
     list_display = [
         'name',
