@@ -120,14 +120,14 @@ def order(request, id):
 
 def payment_result(request):
     check_payment_result = False
-    customer_order = get_object_or_404(Order, id=request.GET.get('order'))
+    customer_order = get_object_or_404(Order, id=request.GET.get('order_id'))
     order_payment_id = customer_order.payment_id
 
     payment = json.loads((Payment.find_one(order_payment_id)).json())
     if payment['status'] == 'succeeded':
         check_payment_result = True
         bot = TelegramNotifier(TG_TOKEN, ADMIN_TG_CHAT_ID)
-        bot.send_notify(f'Оплачен новый заказ № {order}')
+        bot.send_notify(f'Оплачен новый заказ № {customer_order.id}')
 
     context = {
         'result': check_payment_result,
