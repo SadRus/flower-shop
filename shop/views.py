@@ -1,3 +1,4 @@
+import json
 import uuid
 
 from django.shortcuts import render, get_object_or_404
@@ -96,7 +97,7 @@ def order(request, id):
                 uuid.uuid4()
             )
 
-            order.payment_id = payment.json()['id']
+            order.payment_id = json.loads(payment.json())['id']
             order.save()
 
             context = {
@@ -114,7 +115,6 @@ def order(request, id):
 
 
 def payment_result(request):
-
     result = True  # or False
     order = 1
     # here we should set is_paid field of Order to True if result is successes
@@ -122,7 +122,6 @@ def payment_result(request):
     if result:
         bot = TelegramNotifier(TG_TOKEN, ADMIN_TG_CHAT_ID)
         bot.send_notify(f'Оплачен новый заказ № {order}')
-        bot.send_notify(request.GET)
 
     context = {
         'result': result,
@@ -171,6 +170,7 @@ def result(request):
     else:
         quiz_bouquet = event_bouquets.order_by('?').first()
 
+    quiz_bouquet = event_bouquets.filter(price__lt=1000).order_by('?').first()
     bouquet_components = BouquetComponent.objects.filter(bouquet=quiz_bouquet)
 
     context = {
