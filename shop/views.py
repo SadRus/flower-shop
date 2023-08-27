@@ -170,7 +170,6 @@ def result(request):
     else:
         quiz_bouquet = event_bouquets.order_by('?').first()
 
-    quiz_bouquet = event_bouquets.filter(price__lt=1000).order_by('?').first()
     bouquet_components = BouquetComponent.objects.filter(bouquet=quiz_bouquet)
 
     context = {
