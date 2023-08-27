@@ -12,7 +12,7 @@ from shop.bot import TelegramNotifier
 
 
 def index(request):
-    bouquets = Bouquet.objects.all()
+    bouquets = Bouquet.objects.all().order_by('?')
     stores = Store.objects.all()
     context = {
         'bouquets': bouquets,

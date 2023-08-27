@@ -48,7 +48,7 @@
           <div class="recommended__block">
             <span class="recommended__block_intro">{{ bouquet.name }}</span>
             <span class="recommended__block_price">{{ bouquet.price }} руб</span>
-            <img class="recommended__block_img" src="{{ bouquet.image.url }}">
+            <a href="{% url 'card' bouquet.id %}"><img class="recommended__block_img" src="{{ bouquet.image.url }}"></a>
           </div>
         </div>
         {% endfor %}
