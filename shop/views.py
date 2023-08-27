@@ -128,6 +128,8 @@ def payment_result(request):
     payment = json.loads((Payment.find_one(order_payment_id)).json())
     if payment['status'] == 'succeeded':
         check_payment_result = True
+        customer_order.is_paid = True
+        customer_order.save()
         bot = TelegramNotifier(TG_TOKEN, ADMIN_TG_CHAT_ID)
         bot.send_notify(f'Оплачен новый заказ № {customer_order.id}')
 
