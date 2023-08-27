@@ -16,9 +16,9 @@
           <span class="card__elems_intro">Состав</span>
           <div class="card__items">
 
-            {% for component in bouquet_components %}
+            {% for component in bouquet.bouquetcomponent_set.all %}
               <span class="card_items_intro">
-                {{ component.component.name }} - {{ component.quantity }} шт.
+                {{ component.component }} - {{ component.quantity}} шт.
               </span>
             {% endfor %}
 
